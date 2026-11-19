@@ -44,6 +44,13 @@ export default function ListingDetail() {
           <div className="gallery-main">
             <SafeImg src={photos[active]} type={l.type} seed={l.id} alt={l.title} />
           </div>
+          {l.photo_credit && photos.length > 0 && (
+            <div style={{ fontSize: 12, color: 'var(--faint)', marginTop: 6 }}>
+              Namunaviy foto: {l.photo_credit_url
+                ? <a href={l.photo_credit_url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>{l.photo_credit}</a>
+                : l.photo_credit}
+            </div>
+          )}
           {photos.length > 1 && (
             <div className="thumbs">
               {photos.map((p, i) => (

@@ -34,7 +34,7 @@ export default async (req) => {
     const [items, count] = await Promise.all([
       sql.query(
         `SELECT id, type, title, price_usd, rooms, area_m2, land_sotix, floor, total_floors, district,
-           photos, source, posted_at
+           photos, photo_credit, source, posted_at
          FROM listings WHERE ${w} ORDER BY ${order}, id DESC
          LIMIT ${limit} OFFSET ${(page - 1) * limit}`,
         params,

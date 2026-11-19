@@ -9,7 +9,7 @@ export default async (req, context) => {
     if (!item) return json({ error: "E'lon topilmadi" }, 404);
 
     const [similar, market] = await Promise.all([
-      sql`SELECT id, type, title, price_usd, rooms, area_m2, land_sotix, district, photos, source, posted_at
+      sql`SELECT id, type, title, price_usd, rooms, area_m2, land_sotix, district, photos, photo_credit, source, posted_at
           FROM listings
           WHERE is_active AND id <> ${id} AND type = ${item.type} AND price_usd > 0
           ORDER BY (district IS NOT DISTINCT FROM ${item.district}) DESC,

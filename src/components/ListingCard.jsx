@@ -23,7 +23,8 @@ export default function ListingCard({ l }) {
   return (
     <Link to={`/elonlar/${l.id}`} className="card lcard">
       <div className="lcard-img">
-        <SafeImg src={photo} type={l.type} seed={l.id} alt={l.title} loading="lazy" />
+        <SafeImg src={photo} type={l.type} seed={l.id} alt={l.title} loading="lazy"
+          title={l.photo_credit ? `Foto: ${l.photo_credit}` : undefined} />
         <div className="badges">
           <span className="badge" style={{ color: t.color }}>{t.label}</span>
           {l.source === 'demo' && <span className="badge demo">Demo</span>}

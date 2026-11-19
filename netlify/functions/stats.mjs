@@ -40,7 +40,7 @@ export default async () => {
       sql.query(`SELECT LEAST(rooms, 5) AS rooms, COUNT(*)::int AS count, AVG(price_usd)::float AS avg_price
         FROM listings WHERE is_active AND type = 'kvartira' AND rooms > 0 AND price_usd > 0
         GROUP BY 1 ORDER BY 1`),
-      sql.query(`SELECT id, type, title, price_usd, rooms, area_m2, land_sotix, district, photos, source, posted_at
+      sql.query(`SELECT id, type, title, price_usd, rooms, area_m2, land_sotix, district, photos, photo_credit, source, posted_at
         FROM listings WHERE is_active AND price_usd > 0 ORDER BY posted_at DESC LIMIT 8`),
       sql.query(`SELECT MAX(scraped_at) AS last_update,
           ARRAY_REMOVE(ARRAY_AGG(DISTINCT source), NULL) AS sources
