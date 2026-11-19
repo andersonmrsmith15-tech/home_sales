@@ -1,0 +1,27 @@
+{
+  "name": "uy-sotish",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "dev:web": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "db:setup": "node --env-file-if-exists=.env scripts/db-setup.mjs",
+    "db:seed": "node --env-file-if-exists=.env scripts/seed.mjs",
+    "db:clear-demo": "node --env-file-if-exists=.env scripts/seed.mjs --clear",
+    "scrape": "node --env-file-if-exists=.env scripts/scrape-olx.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "recharts": "^2.13.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}
