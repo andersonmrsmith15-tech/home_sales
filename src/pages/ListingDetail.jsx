@@ -42,7 +42,7 @@ export default function ListingDetail() {
       <div className="detail">
         <div>
           <div className="gallery-main">
-            <SafeImg src={photos[active]} type={l.type} alt={l.title} />
+            <SafeImg src={photos[active]} type={l.type} seed={l.id} alt={l.title} />
           </div>
           {photos.length > 1 && (
             <div className="thumbs">

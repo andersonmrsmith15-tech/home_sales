@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from './Icons.jsx';
+import HouseArt from './HouseArt.jsx';
 import { TYPES, fmtUSD, ppm2, timeAgo } from '../utils.js';
 
-export function Placeholder({ type }) {
-  const t = TYPES[type] || TYPES.kvartira;
-  return (
-    <div className="placeholder" style={{ '--c': t.color }}>
-      <Icon name={type === 'kvartira' ? 'building' : 'home'} size={56} color={t.color} strokeWidth={1.3} />
-    </div>
-  );
+export function Placeholder({ type, seed }) {
+  return <div className="placeholder"><HouseArt type={type} seed={seed} /></div>;
 }
 
-/** Rasm yuklanmasa (singan havola) placeholder ko'rsatadi */
-export function SafeImg({ src, type, ...props }) {
+/** Rasm bo'lmasa yoki yuklanmasa (singan havola) generativ tasvir ko'rsatadi */
+export function SafeImg({ src, type, seed, ...props }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [src]);
-  if (!src || failed) return <Placeholder type={type} />;
+  if (!src || failed) return <Placeholder type={type} seed={seed} />;
   return <img src={src} referrerPolicy="no-referrer" onError={() => setFailed(true)} {...props} />;
 }
 
@@ -27,7 +23,7 @@ export default function ListingCard({ l }) {
   return (
     <Link to={`/elonlar/${l.id}`} className="card lcard">
       <div className="lcard-img">
-        <SafeImg src={photo} type={l.type} alt={l.title} loading="lazy" />
+        <SafeImg src={photo} type={l.type} seed={l.id} alt={l.title} loading="lazy" />
         <div className="badges">
           <span className="badge" style={{ color: t.color }}>{t.label}</span>
           {l.source === 'demo' && <span className="badge demo">Demo</span>}

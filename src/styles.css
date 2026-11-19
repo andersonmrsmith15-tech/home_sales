@@ -150,14 +150,9 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: -0.02em; margin: 0; }
 .lcard:hover { transform: translateY(-3px); border-color: var(--border-strong); }
 .lcard-img { position: relative; aspect-ratio: 4 / 3; background: var(--bg-2); overflow: hidden; }
 .lcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.placeholder {
-  width: 100%; height: 100%; display: grid; place-items: center;
-  background:
-    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--c) 35%, transparent), transparent 60%),
-    radial-gradient(circle at 80% 90%, rgba(34, 211, 238, 0.15), transparent 50%),
-    var(--bg-2);
-}
-.placeholder svg { opacity: 0.55; }
+.placeholder { width: 100%; height: 100%; background: var(--bg-2); }
+.placeholder svg { display: block; width: 100%; height: 100%; transition: transform 0.4s ease; }
+.lcard:hover .placeholder svg { transform: scale(1.04); }
 .badges { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; gap: 6px; }
 .badge {
   font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
