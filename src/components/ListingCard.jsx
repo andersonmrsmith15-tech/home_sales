@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from './Icons.jsx';
 import { TYPES, fmtUSD, ppm2, timeAgo } from '../utils.js';
@@ -11,6 +12,14 @@ export function Placeholder({ type }) {
   );
 }
 
+/** Rasm yuklanmasa (singan havola) placeholder ko'rsatadi */
+export function SafeImg({ src, type, ...props }) {
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [src]);
+  if (!src || failed) return <Placeholder type={type} />;
+  return <img src={src} referrerPolicy="no-referrer" onError={() => setFailed(true)} {...props} />;
+}
+
 export default function ListingCard({ l }) {
   const t = TYPES[l.type] || TYPES.kvartira;
   const photo = Array.isArray(l.photos) ? l.photos[0] : null;
@@ -18,7 +27,7 @@ export default function ListingCard({ l }) {
   return (
     <Link to={`/elonlar/${l.id}`} className="card lcard">
       <div className="lcard-img">
-        {photo ? <img src={photo} alt={l.title} loading="lazy" referrerPolicy="no-referrer" /> : <Placeholder type={l.type} />}
+        <SafeImg src={photo} type={l.type} alt={l.title} loading="lazy" />
         <div className="badges">
           <span className="badge" style={{ color: t.color }}>{t.label}</span>
           {l.source === 'demo' && <span className="badge demo">Demo</span>}

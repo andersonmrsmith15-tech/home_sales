@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Icon } from '../components/Icons.jsx';
-import ListingCard, { Placeholder } from '../components/ListingCard.jsx';
+import ListingCard, { SafeImg } from '../components/ListingCard.jsx';
 import { TYPES, api, fmtUSD, ppm2, timeAgo } from '../utils.js';
 
 function Spec({ label, value }) {
@@ -42,9 +42,7 @@ export default function ListingDetail() {
       <div className="detail">
         <div>
           <div className="gallery-main">
-            {photos.length
-              ? <img src={photos[active]} alt={l.title} referrerPolicy="no-referrer" />
-              : <Placeholder type={l.type} />}
+            <SafeImg src={photos[active]} type={l.type} alt={l.title} />
           </div>
           {photos.length > 1 && (
             <div className="thumbs">
