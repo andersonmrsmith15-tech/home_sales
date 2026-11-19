@@ -40,7 +40,7 @@ export default function App() {
         </nav>
         <div className="sidebar-foot">
           <div className="live">Ma'lumotlar bazasi ulangan</div>
-          <div style={{ marginTop: 6 }}>Manba: olx.uz · Toshkent sh.</div>
+          <div style={{ marginTop: 6 }}>Manba: hamkorlar (CSV) · Toshkent sh.</div>
         </div>
       </aside>
 

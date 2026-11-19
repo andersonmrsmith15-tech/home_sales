@@ -10,4 +10,5 @@ export default async () => {
   }
 };
 
-export const config = { schedule: '0 2 * * *' };
+// O'chirilgan: olx.uz avtomatik so'rovlarni 403 bilan rad etadi. Ruxsat olinsa, qatorni qayta yoqing.
+// export const config = { schedule: '0 2 * * *' };

@@ -42,7 +42,9 @@ export default async () => {
         GROUP BY 1 ORDER BY 1`),
       sql.query(`SELECT id, type, title, price_usd, rooms, area_m2, land_sotix, district, photos, source, posted_at
         FROM listings WHERE is_active AND price_usd > 0 ORDER BY posted_at DESC LIMIT 8`),
-      sql.query(`SELECT started_at, finished_at, found, upserted, status FROM scrape_runs ORDER BY id DESC LIMIT 1`),
+      sql.query(`SELECT MAX(scraped_at) AS last_update,
+          ARRAY_REMOVE(ARRAY_AGG(DISTINCT source), NULL) AS sources
+        FROM listings WHERE source <> 'demo'`),
     ]);
     return json({
       kpi: kpi[0],
@@ -52,7 +54,8 @@ export default async () => {
       histogram,
       rooms,
       latest,
-      lastRun: lastRun[0] ?? null,
+      lastUpdate: lastRun[0]?.last_update ?? null,
+      sources: lastRun[0]?.sources ?? [],
     });
   } catch (err) {
     return errorResponse(err);

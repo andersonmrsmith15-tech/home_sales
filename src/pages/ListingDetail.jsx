@@ -65,7 +65,9 @@ export default function ListingDetail() {
           <div className="card">
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10 }}>
               <span className="badge" style={{ color: t.color }}>{t.label}</span>
-              {l.source === 'demo' ? <span className="badge demo">Demo</span> : <span className="badge">olx.uz</span>}
+              {l.source === 'demo'
+                ? <span className="badge demo">Demo</span>
+                : <span className="badge">Manba: {l.source === 'olx' ? 'olx.uz' : l.source}</span>}
             </div>
             <h1 style={{ fontSize: 22, lineHeight: 1.3 }}>{l.title}</h1>
             <div style={{ color: 'var(--muted)', fontSize: 13, marginTop: 6, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -86,7 +88,7 @@ export default function ListingDetail() {
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               {l.url && (
                 <a className="btn primary" href={l.url} target="_blank" rel="noopener noreferrer">
-                  OLX'da ko'rish <Icon name="external" size={15} />
+                  Asl e'lonni ko'rish <Icon name="external" size={15} />
                 </a>
               )}
               {l.lat && l.lon && (

@@ -99,16 +99,17 @@ export default function Dashboard() {
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <span className="chip ai"><Icon name="spark" size={13} /> AI bozor tahlili</span>
-          {data.lastRun && (
-            <span className="chip"><Icon name="clock" size={13} /> Yangilangan: {timeAgo(data.lastRun.finished_at || data.lastRun.started_at)}</span>
-          )}
+          <span className="chip">
+            <Icon name="clock" size={13} />
+            {data.lastUpdate ? `Yangilangan: ${timeAgo(data.lastUpdate)}` : 'Real ma\'lumot hali yuklanmagan'}
+          </span>
         </div>
       </div>
 
       {kpi.demo_count > 0 && (
         <div className="banner">
-          <span>⚠︎ Bazada {fmtNum(kpi.demo_count)} ta <b>demo</b> e'lon bor. olx.uz dan real e'lonlarni yuklash uchun:</span>
-          <code>npm run scrape</code>
+          <span>⚠︎ Bazada {fmtNum(kpi.demo_count)} ta <b>demo</b> e'lon bor. Real e'lonlarni CSV fayldan yuklash uchun:</span>
+          <code>npm run import -- fayl.csv</code>
         </div>
       )}
 

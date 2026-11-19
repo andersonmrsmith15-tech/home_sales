@@ -54,7 +54,45 @@ npm run dev                  # http://localhost:8888
 4. Deploydan keyin bir marta lokal kompyuterdan `npm run db:setup` va `npm run scrape` ni bajaring.
    Keyin `scrape-scheduled` funksiyasi bazani har kuni yangilab turadi.
 
+## Vercel'ga deploy
+
+`api/` papkasi va `vercel.json` Vercel uchun tayyor (`netlify/functions` dagi kod qayta ishlatiladi).
+
+1. Vercel → Project → **Settings → Environment Variables** ga `DATABASE_URL` qo'shing
+   (Production, Preview, Development uchun belgilang).
+2. **Deployments → ⋯ → Redeploy** — o'zgaruvchi faqat yangi deploydan keyin ishlaydi.
+3. `vercel.json` dagi cron har kuni 02:00 UTC da `/api/cron-scrape` ni chaqiradi.
+   Himoya uchun ixtiyoriy `CRON_SECRET` o'zgaruvchisini qo'shing.
+
+## E'lonlarni CSV fayldan yuklash (asosiy usul)
+
+```bash
+npm run import -- data/elonlar.csv --dry-run            # avval tekshirish
+npm run import -- data/elonlar.csv --source=agentlik1   # bazaga yozish
+```
+
+Namuna: [data/elonlar-namuna.csv](data/elonlar-namuna.csv). Excel'da to'ldirib **CSV (UTF-8)** formatida saqlang.
+Ajratgich `,` yoki `;` bo'lishi mumkin, ustun nomlari o'zbekcha, ruscha yoki inglizcha bo'lishi mumkin.
+
+| Ustun | Majburiy | Izoh |
+|---|---|---|
+| `tur` | ✓ | `kvartira`, `hovli`, `eski uy` |
+| `narx` | ✓ | `78500`, `85 000`, `1.650.000.000` |
+| `valyuta` | | `USD` (standart) yoki `UZS` — UZS `USD_UZS_RATE` bo'yicha o'giriladi |
+| `kod` | | Manbadagi e'lon ID si. Bo'lsa, qayta yuklaganda e'lon yangilanadi |
+| `sarlavha`, `tavsif` | | Sarlavha bo'lmasa avtomatik tuziladi |
+| `xonalar`, `maydon`, `sotix`, `qavat`, `qavatlar` | | Sonlar, `4,5` ham bo'ladi |
+| `tuman`, `manzil` | | Ruscha nomlar ham o'zbekchaga o'giriladi |
+| `rasmlar` | | URL'lar, `\|` bilan ajratilgan |
+| `havola`, `sana`, `manba` | | Sana: `2026-11-15` yoki `15.11.2026` |
+
+Xato qatorlar o'tkazib yuboriladi va qator raqami bilan ko'rsatiladi. Bir faylni qayta yuklasangiz, dublikat yaratilmaydi.
+
 ## OLX scraper haqida
+
+> ⚠ olx.uz avtomatik so'rovlarni 403 bilan rad etadi, shuning uchun kunlik avtomatik yangilash o'chirilgan.
+> Kod (`npm run scrape`) faqat OLX ruxsat bergan holat uchun saqlab qo'yilgan.
+
 
 - Manbalar: `olx.uz/nedvizhimost/kvartiry/prodazha/tashkent/` va `olx.uz/nedvizhimost/doma/prodazha/tashkent/`.
 - E'lonlar sahifadagi `window.__PRERENDERED_STATE__` JSON'idan o'qiladi.
